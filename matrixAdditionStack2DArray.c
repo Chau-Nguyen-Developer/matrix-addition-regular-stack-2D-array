@@ -151,7 +151,7 @@ int main()
                 matrixSubtraction[i][j] = firstMatrix[i][j] - secondMatrix[i][j];
             }
         }
-         puts("Print out result matrix to check.");
+        puts("Print out result matrix to check.");
         for (int i = 0; i < numRowsMatrix1; ++i)
         {
             for(int k = 0; k < numColumnsMatrix1; ++k)
@@ -182,13 +182,33 @@ int main()
             }
         }
         //Do matrix multiplication
-        for (int i = 0; i <numRowsMatrix1; ++i)
+        //numColumnsMatrix1 == numRowsMatrix2
+        double temp = 0.0;
+
+        //int b = matrix2Columns
+        //int i = matrix1Rows
+        //int j = matrix1Columns = matrix2Rows
+        for(int b = 0; b < numColumnsMatrix2; ++b)
         {
-            double temp = 0;
-            for(int j = 0; j < numColumnsMatrix2; ++j) //intentionally use number columns matrix 1 to traverse
+            for(int i = 0; i < numRowsMatrix1; ++i)
             {
-                temp = temp + (firstMatrix[i][j] * secondMatrix[j][i]);
+                for(int j = 0; j < numColumnsMatrix1; ++j)
+                {
+                    temp = temp + (firstMatrix[i][j] * secondMatrix[j][b]);
+                }
+                matrixMultiplication[i][b] = temp;
+                temp = 0;
             }
+        }
+
+        puts("Print out result matrix to check.");
+        for (int i = 0; i < numRowsMatrix1; ++i)
+        {
+            for(int k = 0; k < numColumnsMatrix2; ++k)
+            {
+                printf("%lf ", matrixMultiplication[i][k]);
+            }
+            printf("\n");
         }
 
     }
