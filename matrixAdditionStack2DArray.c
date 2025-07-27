@@ -70,7 +70,8 @@ int main()
     
     //Create second matrix
     double secondMatrix[numRowsMatrix2][numColumnsMatrix2];
-    
+    puts("Hit enter to go to the next row.");
+
     //Read in second matrix
     for (int i = 0; i < numRowsMatrix2; ++i)
     {
@@ -96,19 +97,22 @@ int main()
     //Adding two matrices together
     puts("You are about adding two matrices together.");
     puts("Hit enter to go to the next row.");
-    double result[numRowsMatrix1][numColumnsMatrix1];
+    double resultAddition[numRowsMatrix1][numColumnsMatrix1];
     if((numRowsMatrix1 != numRowsMatrix2) && (numColumnsMatrix1 != numColumnsMatrix2))
     {
+        
         puts("Two matrices have different dimension. Cannot do addition.");
     }
     else
     {
+        canAdd = true;
+        canSubtract = true;
         //Initialize my result matrix with 0 first, to make sure it does not have garbage values.
         for (int i = 0 ; i < numRowsMatrix1; ++i)
         {
             for (int j = 0; j < numColumnsMatrix1; ++j)
             {
-                result[i][j] = 0;
+                resultAddition[i][j] = 0;
             }
         }
         
@@ -118,7 +122,7 @@ int main()
             for(int j = 0; j < numColumnsMatrix1; ++j)
             {
                 //result[i][j] = result[i][j] + (firstMatrix[i][j] * secondMatrix[i][j]);
-                result[i][j] = firstMatrix[i][j] + secondMatrix[i][j];
+                resultAddition[i][j] = firstMatrix[i][j] + secondMatrix[i][j];
             }
         }
         puts("Matrix addition is success.");
@@ -129,10 +133,70 @@ int main()
     {
         for(int k = 0; k < numColumnsMatrix1; ++k)
         {
-            printf("%lf ", result[i][k]);
+            printf("%lf ", resultAddition[i][k]);
         }
         printf("\n");
     }
+
+    //MATRIX SUBTRACTION
+    if(canSubtract)
+    {
+        puts("Can do subtraction between these two matrices.");
+        double matrixSubtraction[numRowsMatrix1][numColumnsMatrix1];
+        //Subtracting the matrices
+        for(int i = 0; i < numRowsMatrix1; ++i)
+        {
+            for(int j = 0; j < numColumnsMatrix1; ++j)
+            {
+                matrixSubtraction[i][j] = firstMatrix[i][j] - secondMatrix[i][j];
+            }
+        }
+         puts("Print out result matrix to check.");
+        for (int i = 0; i < numRowsMatrix1; ++i)
+        {
+            for(int k = 0; k < numColumnsMatrix1; ++k)
+            {
+                printf("%lf ", matrixSubtraction[i][k]);
+            }
+            printf("\n");
+        }
+
+    }
+    else
+    {
+        puts("Cannot do subtraction. Uncompatible dimensions.");
+    }
+
+    //MATRIX MULTIPLICATION
+    if(numColumnsMatrix1 == numRowsMatrix2)
+    {
+        puts("Can do matrix multiplication");
+        double matrixMultiplication[numRowsMatrix1][numColumnsMatrix2];
+
+        //Initialize my result matrix with 0 first, to make sure it does not have garbage values.
+        for (int i = 0 ; i < numRowsMatrix1; ++i)
+        {
+            for (int j = 0; j < numColumnsMatrix2; ++j)
+            {
+                matrixMultiplication[i][j] = 0;
+            }
+        }
+        //Do matrix multiplication
+        for (int i = 0; i <numRowsMatrix1; ++i)
+        {
+            double temp = 0;
+            for(int j = 0; j < numColumnsMatrix2; ++j) //intentionally use number columns matrix 1 to traverse
+            {
+                temp = temp + (firstMatrix[i][j] * secondMatrix[j][i]);
+            }
+        }
+
+    }
+    else
+    {
+        puts("Cannot do matrix multiplication. Dimension of two matrices are uncompatible.");
+    }
+
     
     // //Create a matrix to hold the result
     // double addMatrixResult[numRowsMatrix1][numColumnsMatrix1];
