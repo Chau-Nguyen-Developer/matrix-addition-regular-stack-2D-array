@@ -10,26 +10,24 @@ Welcome to GDB Online.
 #include <stdlib.h>
 #include <stdbool.h>
 
-//GLOBAL VARIABLE
-int numColumnsMatrix1;
-
-//FUNCTION PROTOTYPES
-bool addTwoMatrix(int rowMatrix1, int columnMatrix1, int rowMatrix2, int columnMatrix2,
-                  double firstMatrix[rowMatrix1][columnMatrix1], 
-                  double secondMatrix[rowMatrix2][columnMatrix2], 
-                  double result[rowMatrix1][columnMatrix1]);
-                  
-void printMatrix(int rows, int columns, double givenMatrix[rows][columns]);
-void fillMatrix(int rows, int columns, double myMatrix[rows][columns]);
 
 
 //Question: is there any way that I can help to make the column number NOT global?
 //Create an object and store in it?
 
-int numColumnsMatrix1;
 
 int main()
 {
+    //FUNCTION PROTOTYPES
+    bool addTwoMatrix(int rowMatrix1, int columnMatrix1, int rowMatrix2, int columnMatrix2,
+                  double firstMatrix[rowMatrix1][columnMatrix1], 
+                  double secondMatrix[rowMatrix2][columnMatrix2], 
+                  double result[rowMatrix1][columnMatrix1]);
+                  
+    void printMatrix(int rows, int columns, double givenMatrix[rows][columns]);
+    void fillMatrix(int rows, int columns, double myMatrix[rows][columns]);
+
+
     //CREATING FIRST MATRIX
     //Read in row numbers for first matrix.
     int numRowsMatrix1;
@@ -47,25 +45,28 @@ int main()
     double firstMatrix[numRowsMatrix1][numColumnsMatrix1];
     
     //Read in first matrix
-    for (int i = 0; i < numRowsMatrix1; ++i)
-    {
-        printf("Row %d: ", i + 1);
-        for(int k = 0; k < numColumnsMatrix1; ++k)
-        {
-            scanf("%lf", &firstMatrix[i][k]);
-        }
-    }
+    fillMatrix(numRowsMatrix1,numColumnsMatrix1,firstMatrix);
+    // for (int i = 0; i < numRowsMatrix1; ++i)
+    // {
+    //     printf("Row %d: ", i + 1);
+    //     for(int k = 0; k < numColumnsMatrix1; ++k)
+    //     {
+    //         scanf("%lf", &firstMatrix[i][k]);
+    //     }
+    // }
     
     //Print matrix again to check 
-    puts("Print out first matrix to check.");
-    for (int i = 0; i < numRowsMatrix1; ++i)
-    {
-        for(int k = 0; k < numColumnsMatrix1; ++k)
-        {
-            printf("%lf ", firstMatrix[i][k]);
-        }
-        printf("\n");
-    }
+    // puts("Print out first matrix to check.");
+    // for (int i = 0; i < numRowsMatrix1; ++i)
+    // {
+    //     for(int k = 0; k < numColumnsMatrix1; ++k)
+    //     {
+    //         printf("%lf ", firstMatrix[i][k]);
+    //     }
+    //     printf("\n");
+    // }
+
+    printMatrix(numRowsMatrix1, numColumnsMatrix1,firstMatrix);
     
     //CREATING SECOND MATRIX
     //Read in row numbers for second matrix.
@@ -110,7 +111,7 @@ int main()
     //Call the add two matrix function to fill in the "result" matrix
     // addTwoMatrix(int,         int,                   int,               int ,       double firstMatrix[][numColumnsMatrix1], double secondMatrix[][numColumnsMatrix1], double result[][numColumnsMatrix1]);
     addTwoMatrix(numRowsMatrix1, numColumnsMatrix1, numRowsMatrix2, numColumnsMatrix2, firstMatrix[][numColumnsMatrix1], secondMatrix[][numColumnsMatrix1], addMatrixResult[][numColumnsMatrix1]);
-    printTheMatrix(numRowsMatrix1, numColumnsMatrix1, addMatrixResult[][numColumnsMatrix1]);
+    printMatrix(numRowsMatrix1, numColumnsMatrix1, addMatrixResult[][numColumnsMatrix1]);
     
 }
 
@@ -134,7 +135,7 @@ bool addTwoMatrix(int rowMatrix1, int columnMatrix1, int rowMatrix2, int columnM
                 result[i][j] = firstMatrix[i][j] + secondMatrix[i][j];
             }
         }
-        puts("Adding two matrices are complete succesfully.")
+        puts("Adding two matrices are complete succesfully.");
     }
     return true;
     
