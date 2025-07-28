@@ -56,7 +56,8 @@ int main()
         matrix2[i] = (double *)malloc(columnsMatrix2 * sizeof(double));
     }
 
-    
+    //NEED TO PRINT OUT MATRIX TO CHECK
+
     //Close the file
     fclose(myFile);
     return 0;
