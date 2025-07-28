@@ -1,5 +1,4 @@
-
-## Implementing matrices and their operations through different approaches
+## Understand and Compare Different Methods of Implementing Matrices in C++ and Java
 #### Overall
 * Implement 4 versions of a matrix program and write a driver to test 3 different operations with matrices.
 * The matrix operations that you should include are Addition, Subtraction and Multiplication.
