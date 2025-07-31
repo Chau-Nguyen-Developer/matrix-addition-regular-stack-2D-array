@@ -20,12 +20,12 @@ int main()
     
     puts("Successfully opened the file.");
     
-    //MATRIX 1
+    ////MATRIX 1
     //Reading from the file to create matrix
     int rowsMatrix1, columnsMatrix1;
     fscanf(myFile, "%d %d", &rowsMatrix1, &columnsMatrix1);
-    //print out rows and columns number for matrix 1
-    printf("Matrix 1. Rows: %d, %d\n", rowsMatrix1, columnsMatrix1);
+    
+    //Print out rows and columns number for matrix 1
     //Allocate matrix 1 (aka allocate the row of pointers (type double))
     double **matrix1 = (double**)malloc(rowsMatrix1 * sizeof(double *));
     //Allocate memory for each row
@@ -40,7 +40,7 @@ int main()
     }
 
     //Read in matrix 1
-    puts("Matrix1:\n");
+    printf("Matrix 1. Rows: %d, %d\n", rowsMatrix1, columnsMatrix1);
     for(int i = 0; i < rowsMatrix1; ++i)
     {
         printf("Row %d\n", i);
@@ -52,16 +52,11 @@ int main()
         }
         puts("\n");
     }
-    // //Print out matrix 1 to testing
-    // printf("Matrix 1: %d x %d",rowsMatrix1, columnsMatrix1);
-    // for(int i = 0; i < rowsMatrix1; ++i)
-    // {
-    //     for (int j = 0; j < columnsMatrix1; ++j)
-    //     {
-    //         printf("%lf ", matrix1[i][j]);
-    //     }
-    //     puts("\n");
-    // }
+    ////MATRIX 2
+    int rowsMatrix2, columnsMatrix2;
+    fscanf(myFile, "%d %d", &rowsMatrix2, &columnsMatrix2);
+    printf("Matrix 2. Rows: %d. Columns: %d\n", rowsMatrix2, columnsMatrix2);
+    
 
     // //MATRIX 2
     // int rowsMatrix2, columnsMatrix2;
