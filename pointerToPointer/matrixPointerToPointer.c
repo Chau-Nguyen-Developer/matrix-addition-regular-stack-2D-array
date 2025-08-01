@@ -1,6 +1,7 @@
 //PROGRAMMER: NGOC CHAU NGUYEN
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 int main()
 {
@@ -24,7 +25,7 @@ int main()
     //Reading from the file to create matrix
     int rowsMatrix1, columnsMatrix1;
     fscanf(myFile, "%d %d", &rowsMatrix1, &columnsMatrix1);
-    
+
     //Print out rows and columns number for matrix 1
     //Allocate matrix 1 (aka allocate the row of pointers (type double))
     double **matrix1 = (double**)malloc(rowsMatrix1 * sizeof(double *));
@@ -40,14 +41,13 @@ int main()
     }
 
     //Read in matrix 1
-    printf("Matrix 1. Rows: %d, %d\n", rowsMatrix1, columnsMatrix1);
+    printf("Matrix 1. Rows: %d, Columns: %d\n", rowsMatrix1, columnsMatrix1);
     for(int i = 0; i < rowsMatrix1; ++i)
     {
         printf("Row %d\n", i);
         for(int j = 0; j < columnsMatrix1; ++j)
         {
             fscanf(myFile, "%lf", &matrix1[i][j]);
-            //printf("Matrix1[%d][%d]: %lf", i, j, matrix1[i][j]);
             printf("%lf ", matrix1[i][j]);
         }
         puts("\n");
@@ -55,39 +55,73 @@ int main()
     ////MATRIX 2
     int rowsMatrix2, columnsMatrix2;
     fscanf(myFile, "%d %d", &rowsMatrix2, &columnsMatrix2);
+    double **matrix2 = (double**)malloc(rowsMatrix2 * sizeof(double *));
+    //Allocate memory for each row
+    for(int i = 0; i < rowsMatrix2; ++i)
+    {
+        matrix2[i] = (double *)malloc(columnsMatrix2 * sizeof(double));
+        if (matrix2[i] == NULL)
+        {
+            printf("Memory allocation failed for row %d.\n", i);
+            return -1; // need to look into how to return error code. Use perror?
+        }
+    }
     printf("Matrix 2. Rows: %d. Columns: %d\n", rowsMatrix2, columnsMatrix2);
+
+    puts("Read in matrix 2");
+    for(int i = 0; i < rowsMatrix2; ++i)
+    {
+        printf("Row %d\n", i);
+        for(int j = 0; j < columnsMatrix2; ++j)
+        {
+            fscanf(myFile, "%lf", &matrix2[i][j]);
+            printf("%lf ", matrix2[i][j]);
+        }
+        puts("\n");
+    }
+
+    puts("Successfully read in the matrices from the file.");
+
+    //MATRIX ADDITION
+    puts("Matrix Addition");
+    //Create a matrix to hold addition result
+    bool canAdd, canSubtract, canMultiply;
+    if((rowsMatrix1 == rowsMatrix2) && (columnsMatrix1 == columnsMatrix2))
+    {
+        canAdd = true;
+        canSubtract = true;
+    }
+    if(canAdd)
+    {
+        double **addResult = (double**)malloc(rowsMatrix1 * sizeof(double *));
+       //Allocate memory for each row
+        for(int i = 0; i < rowsMatrix1; ++i)
+        {
+            addResult[i] = (double *)malloc(columnsMatrix1 * sizeof(double));
+            if (addResult[i] == NULL)
+            {
+                printf("Memory allocation failed for row %d.\n", i);
+                return -1;
+            }
+        }
+        puts("Printing out result matrix addition.");
+        for(int i = 0; i < rowsMatrix1; ++i)
+        {
+            printf("Row %d: ", i);
+            for (int j = 0; j < columnsMatrix1; ++j)
+            {
+                addResult[i][j] = matrix1[i][j] + matrix2[i][j];
+                printf("%lf ", addResult[i][j]);
+            }
+            puts("\n");
+        }
+    }
+    else
+    {
+        puts("Cannot add two matrices.");
+    }
     
-
-    // //MATRIX 2
-    // int rowsMatrix2, columnsMatrix2;
-    // fscanf(myFile, "%d %d", &rowsMatrix2, &columnsMatrix2);
-    // //Allocate memory row of pointers for matrix 2
-    // double **matrix2 = (double**)malloc(rowsMatrix2 * sizeof(double *));
-    // //Allocate memory for each row
-    // for (int i = 0; i < rowsMatrix2; ++i)
-    // {
-    //     matrix2[i] = (double *)malloc(columnsMatrix2 * sizeof(double));
-    // }
-
-    //  //Read in matrix 2
-    // for(int i = 0; i < rowsMatrix2; ++i)
-    // {
-    //     for(int j = 0; j < columnsMatrix2; ++j)
-    //     {
-    //         fscanf(myFile, "%lf", &matrix1[i][j]);
-    //     }
-    // }
-    // //NEED TO PRINT OUT MATRIX TO CHECK
-    // //Print out matrix 2 to testing
-    // printf("Matrix 2: %d x %d",rowsMatrix2, columnsMatrix2);
-    // for(int i = 0; i < rowsMatrix2; ++i)
-    // {
-    //     for (int j = 0; j < columnsMatrix2; ++j)
-    //     {
-    //         printf("%lf ", matrix2[i][j]);
-    //     }
-    //     puts("\n");
-    // }
+   
 
     //Freeing my memory. 
     for (int i = 0; i < rowsMatrix1; ++i)
@@ -95,6 +129,12 @@ int main()
         free(matrix1[i]);
     }
     free(matrix1);
+
+    for (int i = 0; i < rowsMatrix2; ++i)
+    {
+        free(matrix2[i]);
+    }
+    free(matrix2);
 
     //Close the file
     fclose(myFile);
