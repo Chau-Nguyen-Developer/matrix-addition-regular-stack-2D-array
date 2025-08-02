@@ -121,7 +121,94 @@ int main()
         puts("Cannot add two matrices.");
     }
     
-   
+    //MATRIX SUBTRACTION
+    if(canSubtract)
+    {
+        double **subtractResult = (double**)malloc(rowsMatrix1 * sizeof(double *));
+       //Allocate memory for each row
+        for(int i = 0; i < rowsMatrix1; ++i)
+        {
+            subtractResult[i] = (double *)malloc(columnsMatrix1 * sizeof(double));
+            if (subtractResult[i] == NULL)
+            {
+                printf("Memory allocation failed for row %d.\n", i);
+                return -1;
+            }
+        }
+
+        puts("Matrix Subtraction");
+        puts("Printing out result matrix subtraction.");
+        for(int i = 0; i < rowsMatrix1; ++i)
+        {
+            printf("Row %d: ", i);
+            for (int j = 0; j < columnsMatrix1; ++j)
+            {
+                subtractResult[i][j] = matrix1[i][j] - matrix2[i][j];
+                printf("%lf ", subtractResult[i][j]);
+            }
+            puts("\n");
+        }
+    }
+    else
+    {
+        puts("Cannot subtract two matrices.");
+    }
+    //MATRIX MULTIPLICATION
+    if(columnsMatrix1 == rowsMatrix2)
+    {
+        canMultiply = true;
+        puts("Can multiply these two matrices.");
+    }
+    if(canMultiply)
+    {
+        double **multiplyResult = (double**)malloc(rowsMatrix1 * sizeof(double *));
+
+        //Allocate memory for each row - matrix multiplication
+        for(int i = 0; i < rowsMatrix1; ++i)
+        {
+            multiplyResult[i] = (double *)malloc(columnsMatrix2 * sizeof(double));
+            if (multiplyResult[i] == NULL)
+            {
+                printf("Memory allocation failed for row %d.\n", i);
+                return -1;
+            }
+        }
+
+        puts("Printing out result matrix multiplication.");
+      //Initialize my result matrix with 0 first, to make sure it does not have garbage values.
+        for (int i = 0 ; i < rowsMatrix1; ++i)
+        {
+            for (int j = 0; j < columnsMatrix2; ++j)
+            {
+                multiplyResult[i][j] = 0;
+            }
+        }
+        //Do matrix multiplication
+        //numColumnsMatrix1 == numRowsMatrix2
+        double temp = 0.0;
+
+        //int b = matrix2Columns
+        //int i = matrix1Rows
+        //int j = matrix1Columns = matrix2Rows
+        for(int b = 0; b < columnsMatrix2; ++b)
+        {   printf("Row %d: ", b);
+            for(int i = 0; i < rowsMatrix1; ++i)
+            {
+                for(int j = 0; j < columnsMatrix1; ++j)
+                {
+                    temp = temp + (matrix1[i][j] * matrix2[j][b]);
+                }
+                multiplyResult[i][b] = temp;
+                printf("%lf ", multiplyResult[i][b]);
+                temp = 0;
+            }
+            puts("\n");
+        }
+    }
+    else
+    {
+        puts("Cannot do matrix multiplication. Incompatible matrix dimension.");
+    }
 
     //Freeing my memory. 
     for (int i = 0; i < rowsMatrix1; ++i)
