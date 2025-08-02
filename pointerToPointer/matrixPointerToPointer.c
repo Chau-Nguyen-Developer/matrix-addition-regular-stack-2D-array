@@ -121,6 +121,34 @@ int main()
         puts("Cannot add two matrices.");
     }
     
+    //MATRIX SUBTRACTION
+    if(canSubtract)
+    {
+         double **subtractResult = (double**)malloc(rowsMatrix1 * sizeof(double *));
+       //Allocate memory for each row
+        for(int i = 0; i < rowsMatrix1; ++i)
+        {
+            subtractResult[i] = (double *)malloc(columnsMatrix1 * sizeof(double));
+            if (subtractResult[i] == NULL)
+            {
+                printf("Memory allocation failed for row %d.\n", i);
+                return -1;
+            }
+        }
+
+        puts("Matrix Subtraction");
+        puts("Printing out result matrix subtraction.");
+        for(int i = 0; i < rowsMatrix1; ++i)
+        {
+            printf("Row %d: ", i);
+            for (int j = 0; j < columnsMatrix1; ++j)
+            {
+                subtractResult[i][j] = matrix1[i][j] - matrix2[i][j];
+                printf("%lf ", subtractResult[i][j]);
+            }
+            puts("\n");
+        }
+    }
    
 
     //Freeing my memory. 
